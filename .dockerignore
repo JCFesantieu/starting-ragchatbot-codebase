@@ -1,0 +1,47 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# Python cache
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info
+dist
+build
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ChromaDB (will be mounted as volume)
+backend/chroma_db/
+
+# Environment files (will be passed via env_file)
+.env
+
+# Documentation and non-essential files
+README.md
+CLAUDE.md
+query-flow-diagram.txt
+*.md
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test files
+tests/
+*.test.py

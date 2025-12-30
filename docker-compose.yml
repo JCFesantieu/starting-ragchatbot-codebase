@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  rag-chatbot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rag-chatbot
+    ports:
+      - "5000:5000"
+    volumes:
+      # Persist ChromaDB data
+      - ./backend/chroma_db:/app/backend/chroma_db
+      # Mount docs folder (optional - if you want to add docs without rebuilding)
+      - ./docs:/app/docs
+      # Mount backend for hot reload during development
+      - ./backend:/app/backend
+      # Mount frontend for hot reload during development
+      - ./frontend:/app/frontend
+    environment:
+      # Load environment variables from .env file
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    env_file:
+      - .env
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/api/courses')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
