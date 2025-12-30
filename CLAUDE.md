@@ -292,3 +292,32 @@ Session management: Client generates session ID on first message, includes in al
 rm -rf backend/chroma_db
 # Restart server to rebuild embeddings
 ```
+
+**Git repository configuration:**
+
+This repository is a fork of the DeepLearning.AI course repository. The git remotes are configured as follows:
+
+```bash
+# View current remotes
+git remote -v
+```
+
+**Remote configuration:**
+- `origin`: https://github.com/https-deeplearning-ai/starting-ragchatbot-codebase (upstream, read-only)
+- `myfork`: https://github.com/JCFesantieu/starting-ragchatbot-codebase (your fork, read-write)
+
+**Working with the repository:**
+```bash
+# Push changes to your fork
+git push myfork main
+
+# Pull updates from upstream (DeepLearning.AI)
+git pull origin main
+
+# Sync your fork with upstream
+git fetch origin
+git merge origin/main
+git push myfork main
+```
+
+**Important:** Always push to `myfork`, not `origin` (you don't have write access to the upstream repository).
