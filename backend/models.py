@@ -20,3 +20,11 @@ class CourseChunk(BaseModel):
     course_title: str                   # Which course this chunk belongs to
     lesson_number: Optional[int] = None # Which lesson this chunk is from
     chunk_index: int                    # Position of this chunk in the document
+
+class SourceReference(BaseModel):
+    """Represents a source reference with optional links"""
+    display: str                          # Human-readable label: "Course X - Lesson Y"
+    course_title: str                     # Course title for filtering/grouping
+    lesson_number: Optional[int] = None   # Lesson number if available
+    course_link: Optional[str] = None     # URL to course homepage
+    lesson_link: Optional[str] = None     # URL to specific lesson

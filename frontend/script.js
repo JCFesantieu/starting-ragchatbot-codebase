@@ -110,30 +110,53 @@ function createLoadingMessage() {
     return messageDiv;
 }
 
+function renderSources(sources) {
+    return sources.map(source => {
+        // Handle legacy string format for backwards compatibility
+        if (typeof source === 'string') {
+            return `<span class="source-item">${escapeHtml(source)}</span>`;
+        }
+
+        const display = escapeHtml(source.display);
+        const lessonLink = source.lesson_link?.trim();
+        const courseLink = source.course_link?.trim();
+
+        // Prefer lesson link (more specific), fallback to course link
+        const url = lessonLink || courseLink;
+
+        if (url) {
+            return `<a href="${escapeHtml(url)}" class="source-link" target="_blank" rel="noopener noreferrer">${display} <span class="external-icon">↗</span></a>`;
+        } else {
+            // No links available
+            return `<span class="source-item">${display}</span>`;
+        }
+    }).join('');
+}
+
 function addMessage(content, type, sources = null, isWelcome = false) {
     const messageId = Date.now();
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${type}${isWelcome ? ' welcome-message' : ''}`;
     messageDiv.id = `message-${messageId}`;
-    
+
     // Convert markdown to HTML for assistant messages
     const displayContent = type === 'assistant' ? marked.parse(content) : escapeHtml(content);
-    
+
     let html = `<div class="message-content">${displayContent}</div>`;
-    
+
     if (sources && sources.length > 0) {
         html += `
             <details class="sources-collapsible">
                 <summary class="sources-header">Sources</summary>
-                <div class="sources-content">${sources.join(', ')}</div>
+                <div class="sources-content">${renderSources(sources)}</div>
             </details>
         `;
     }
-    
+
     messageDiv.innerHTML = html;
     chatMessages.appendChild(messageDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
-    
+
     return messageId;
 }
 
