@@ -38,6 +38,12 @@ function setupEventListeners() {
             sendMessage();
         });
     });
+
+    // New Chat button
+    const newChatButton = document.getElementById('newChatButton');
+    if (newChatButton) {
+        newChatButton.addEventListener('click', createNewSession);
+    }
 }
 
 
