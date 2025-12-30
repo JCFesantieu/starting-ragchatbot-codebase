@@ -32,6 +32,52 @@ Access at http://localhost:8000
 
 **On Windows:** Use Git Bash to run shell scripts, or use the manual PowerShell command above.
 
+## Running with Docker
+
+**Prerequisites:**
+- Docker and Docker Compose installed
+- Anthropic API key in `.env` file: `ANTHROPIC_API_KEY=sk-ant-api03-...`
+  - Copy `.env.example` to `.env` and add your key
+
+**Build and start the container:**
+```bash
+docker-compose up --build -d
+```
+
+**Access the application:**
+- Application: http://localhost:5000
+- Note: Docker version runs on port 5000 (not 8000)
+
+**Useful Docker commands:**
+```bash
+# View logs
+docker-compose logs -f
+
+# Stop container
+docker-compose down
+
+# Restart after .env changes (must use down/up, not restart)
+docker-compose down && docker-compose up -d
+
+# Rebuild after code changes
+docker-compose up --build
+
+# Clear all data including ChromaDB
+docker-compose down -v
+```
+
+**Docker deployment features:**
+- **Hot reload:** Code changes in `backend/` and `frontend/` are automatically reflected (mounted as volumes)
+- **Persistent data:** ChromaDB data persists in `./backend/chroma_db` across container restarts
+- **Health checks:** Monitors `/api/courses` endpoint to ensure app is running
+- **Environment isolation:** All dependencies contained in the Docker image
+
+**Important Docker notes:**
+- The `.env` file is loaded via `env_file` in `docker-compose.yml`
+- Changes to `.env` require `docker-compose down && docker-compose up -d` (restart alone won't reload env vars)
+- ChromaDB data is mounted as a volume, so it persists even after `docker-compose down`
+- Use `docker-compose down -v` to completely clear all volumes and start fresh
+
 ## Architecture Overview
 
 ### Request Flow (User Query → Response)
