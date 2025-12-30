@@ -117,7 +117,8 @@ function renderSources(sources) {
             return `<span class="source-item">${escapeHtml(source)}</span>`;
         }
 
-        const display = escapeHtml(source.display);
+        const courseTitle = escapeHtml(source.course_title);
+        const lessonNumber = source.lesson_number;
         const lessonLink = source.lesson_link?.trim();
         const courseLink = source.course_link?.trim();
 
@@ -125,10 +126,18 @@ function renderSources(sources) {
         const url = lessonLink || courseLink;
 
         if (url) {
-            return `<a href="${escapeHtml(url)}" class="source-link" target="_blank" rel="noopener noreferrer">${display} <span class="external-icon">↗</span></a>`;
+            // Format: "📚 Course Title" on one line, "Lesson N" on the next line
+            let html = '<a href="' + escapeHtml(url) + '" class="source-link" target="_blank" rel="noopener noreferrer">';
+            html += '<span class="source-course-name">' + courseTitle + '</span>';
+            if (lessonNumber !== null && lessonNumber !== undefined) {
+                html += '<span class="source-lesson-number">Lesson ' + lessonNumber + '</span>';
+            }
+            html += '<span class="external-icon">↗</span>';
+            html += '</a>';
+            return html;
         } else {
             // No links available
-            return `<span class="source-item">${display}</span>`;
+            return `<span class="source-item">${courseTitle}</span>`;
         }
     }).join('');
 }
