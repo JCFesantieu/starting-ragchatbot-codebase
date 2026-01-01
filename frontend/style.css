@@ -9,6 +9,8 @@
 :root {
     --primary-color: #2563eb;
     --primary-hover: #1d4ed8;
+    --link-color: #60a5fa;
+    --link-hover: #93c5fd;
     --background: #0f172a;
     --surface: #1e293b;
     --surface-hover: #334155;
@@ -250,7 +252,7 @@ header h1 {
 
 /* Clickable source links */
 .source-link {
-    color: var(--primary-color);
+    color: var(--link-color);
     text-decoration: none;
     font-size: 0.875rem;
     display: flex;
@@ -266,7 +268,8 @@ header h1 {
 
 .source-link:hover {
     background: rgba(255, 255, 255, 0.05);
-    border-color: var(--primary-color);
+    border-color: var(--link-color);
+    color: var(--link-hover);
     transform: translateX(4px);
 }
 
@@ -287,7 +290,7 @@ header h1 {
 /* Lesson number styling */
 .source-lesson-number {
     font-size: 0.8rem;
-    color: var(--primary-color);
+    color: var(--link-color);
     font-weight: 600;
     display: inline-flex;
     align-items: center;
@@ -409,6 +412,23 @@ header h1 {
     border: none;
     border-top: 1px solid var(--border-color);
     margin: 1rem 0;
+}
+
+.message-content a {
+    color: var(--link-color);
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+.message-content a:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+}
+
+.message-content a:focus {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+    border-radius: 2px;
 }
 
 /* Chat Input Container */
