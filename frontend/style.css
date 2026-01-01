@@ -721,36 +721,34 @@ details[open] .suggested-header::before {
 
 /* New Chat Button */
 .new-chat-button {
-    padding: 0.75rem 1rem;
-    background: var(--background);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    color: var(--text-primary);
     font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
     cursor: pointer;
-    transition: all 0.2s ease;
+    padding: 0.5rem 0;
+    border: none;
+    background: none;
+    outline: none;
+    transition: color 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     text-align: left;
     width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    font-weight: 500;
-}
-
-.new-chat-button svg {
-    flex-shrink: 0;
 }
 
 .new-chat-button:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px var(--focus-ring);
+    color: var(--primary-color);
 }
 
 .new-chat-button:hover {
-    background: var(--surface-hover);
-    border-color: var(--primary-color);
     color: var(--primary-color);
-    transform: translateX(2px);
+}
+
+.new-chat-button::before {
+    content: '▶';
+    display: inline-block;
+    margin-right: 0.5rem;
+    font-size: 0.75rem;
 }
 
 /* Responsive Design */
