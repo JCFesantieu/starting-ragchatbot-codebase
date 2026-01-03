@@ -46,7 +46,7 @@ services:
     environment:
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
       - TESTING=true
-      - PYTHONPATH=/app
+      - PYTHONPATH=/app/backend
     env_file:
       - .env
     command: uv run pytest backend/tests -v --cov=backend --cov-report=term-missing
