@@ -29,3 +29,26 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
+
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rag-chatbot-test
+    working_dir: /app
+    volumes:
+      # Mount all code for testing
+      - ./backend:/app/backend
+      - ./frontend:/app/frontend
+      - ./docs:/app/docs
+      # Separate test ChromaDB to avoid conflicts
+      - ./backend/chroma_db_test:/app/backend/chroma_db
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - TESTING=true
+      - PYTHONPATH=/app
+    env_file:
+      - .env
+    command: uv run pytest backend/tests -v --cov=backend --cov-report=term-missing
+    profiles:
+      - test
