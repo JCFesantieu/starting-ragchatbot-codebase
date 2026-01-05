@@ -88,7 +88,7 @@ async def get_course_stats():
 @app.on_event("startup")
 async def startup_event():
     """Load initial documents on startup"""
-    docs_path = "../docs"
+    docs_path = "/app/docs"
     if os.path.exists(docs_path):
         print("Loading initial documents...")
         try:
@@ -116,4 +116,4 @@ class DevStaticFiles(StaticFiles):
     
     
 # Serve static files for the frontend
-app.mount("/", StaticFiles(directory="../frontend", html=True), name="static")
+app.mount("/", StaticFiles(directory="/app/frontend", html=True), name="static")
